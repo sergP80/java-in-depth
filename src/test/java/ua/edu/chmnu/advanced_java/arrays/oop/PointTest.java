@@ -1,9 +1,9 @@
 package ua.edu.chmnu.advanced_java.arrays.oop;
 
 import org.junit.jupiter.api.Test;
-import ua.edu.chmnu.advanced_java.gui.oop.Point;
+import ua.edu.chmnu.advanced_java.oop.Point;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PointTest {
 

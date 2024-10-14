@@ -15,32 +15,32 @@ public class FunctionUtils {
 
         return PointType.ORDINAL;
     }
+
     public static Point[] generateBy(Function<Double, Double> f, double a, double b, double h) {
-        int count = (int) Math.ceil((b - a)/h);
+        int count = (int) Math.ceil((b - a) / h);
 
         Point[] points = new Point[count + 1];
 
-        int i = 0;
+        Function<Integer, Double> currentX = i -> a + i * h;
 
-        for (double x = a; x < b - h; x += h) {
-            double[] x1 = {x, x + h, x + 2 *h };
+        double[] xSteps = new double[3];
+        double[] ySteps = new double[xSteps.length];
 
-            double[] y1 = {
-                    f.apply(x1[0]),
-                    f.apply(x1[1]),
-                    f.apply(x1[2])
-            };
+        for (int i = 0; i < points.length - 2 ; ++i) {
 
-            PointType pointType = resolvePointType(y1);
-
-            for (int j = 0; j < 3; ++j) {
-                points[i + j] = new Point(x1[j], y1[j], pointType);
+            for (int j = 0; j < xSteps.length; ++j) {
+                xSteps[j] = currentX.apply(i + j);
+                ySteps[j] = f.apply(xSteps[j]);
             }
 
-            ++i;
+            PointType pointType = resolvePointType(ySteps);
+
+            for (int j = 0; j < xSteps.length; ++j) {
+                points[i + j] = new Point(xSteps[j], ySteps[j], pointType);
+            }
+
         }
 
-        System.out.println(i);
         return points;
     }
 }
