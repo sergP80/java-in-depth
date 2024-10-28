@@ -1,8 +1,12 @@
 package ua.edu.chmnu.advanced_java.oop;
 
-import java.util.function.Function;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FunctionUtils {
+
+//    private FunctionUtils() {}
 
     private static PointType resolvePointType(double[] y) {
         if (y[0] < y[1] && y[2] < y[1]) {
@@ -16,12 +20,10 @@ public class FunctionUtils {
         return PointType.ORDINAL;
     }
 
-    public static Point[] generateBy(Function<Double, Double> f, double a, double b, double h) {
-        int count = (int) Math.ceil((b - a) / h);
+    public static Point[] generateBy(FunctionChartOption options) {
+        int count = options.getCountOfPoints();
 
         Point[] points = new Point[count + 1];
-
-        Function<Integer, Double> currentX = i -> a + i * h;
 
         double[] xSteps = new double[3];
         double[] ySteps = new double[xSteps.length];
@@ -29,8 +31,8 @@ public class FunctionUtils {
         for (int i = 0; i < points.length - 2 ; ++i) {
 
             for (int j = 0; j < xSteps.length; ++j) {
-                xSteps[j] = currentX.apply(i + j);
-                ySteps[j] = f.apply(xSteps[j]);
+                xSteps[j] = options.nextXBy(i + j);
+                ySteps[j] = options.compute(xSteps[j]);
             }
 
             PointType pointType = resolvePointType(ySteps);

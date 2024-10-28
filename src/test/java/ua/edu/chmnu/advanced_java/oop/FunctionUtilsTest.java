@@ -11,7 +11,14 @@ class FunctionUtilsTest {
     @Test
     void shouldGenerateSeriesWithOnlyOrdinal() {
 
-        Point[] points = FunctionUtils.generateBy(x -> 2 * x, -1, 1, 0.1);
+        FunctionChartOption option = FunctionChartOption.builder()
+                .function(x -> 2 * x)
+                .start(-1)
+                .end(1)
+                .step(0.1)
+                .build();
+
+        Point[] points = FunctionUtils.generateBy(option);
 
         for (var p : points) {
             assertFalse(p.isExtreme());
@@ -20,8 +27,14 @@ class FunctionUtilsTest {
 
     @Test
     void shouldGenerateSeriesWithOneMin() {
+        FunctionChartOption option = FunctionChartOption.builder()
+                .function(x -> 2 * x * x - 3.1 * x + 5.1)
+                .start(-50)
+                .end(50)
+                .step(0.05)
+                .build();
 
-        Point[] points = FunctionUtils.generateBy(x -> 2 * x * x - 3.1 * x + 5.1, -50, 50, 0.05);
+        Point[] points = FunctionUtils.generateBy(option);
 
         int indexOfExtremum = -1;
 
@@ -44,7 +57,14 @@ class FunctionUtilsTest {
     @Test
     void shouldGenerateSeriesWithOneMax() {
 
-        Point[] points = FunctionUtils.generateBy(x -> -1.5 * x * x + 4.3 * x - 7.11, -50, 50, 0.05);
+        FunctionChartOption option = FunctionChartOption.builder()
+                .function(x -> -1.5 * x * x + 4.3 * x - 7.11)
+                .start(-50)
+                .end(50)
+                .step(0.05)
+                .build();
+
+        Point[] points = FunctionUtils.generateBy(option);
 
         int indexOfExtremum = -1;
 

@@ -16,7 +16,7 @@ class FunctionUtilsParametersTest {
     @MethodSource("provideExtremeFixtures")
     void shouldGenerateSeriesWithExtremum(ExtremumFixture data) {
 
-        Point[] points = FunctionUtils.generateBy(data.getFunction(), data.getStart(), data.getEnd(), data.getStep());
+        Point[] points = FunctionUtils.generateBy(data.getOption());
 
         int indexOfExtremum = -1;
 
@@ -42,30 +42,42 @@ class FunctionUtilsParametersTest {
         return Stream.of(
                 Arguments.of(
                         ExtremumFixture.builder()
-                                .function(x -> 2 * x)
-                                .start(-1)
-                                .end(1)
-                                .step(0.1)
+                                .option(
+                                        FunctionChartOption.builder()
+                                                .function(x -> 2 * x)
+                                                .start(-1)
+                                                .end(1)
+                                                .step(0.1)
+                                                .build()
+                                )
                                 .extremeCount(0)
                                 .pointType(PointType.ORDINAL)
                                 .build()
                 ),
                 Arguments.of(
                         ExtremumFixture.builder()
-                                .function(x -> 2 * x * x - 3.1 * x + 5.1)
-                                .start(-50)
-                                .end(50)
-                                .step(0.05)
+                                .option(
+                                        FunctionChartOption.builder()
+                                                .function(x -> 2 * x * x - 3.1 * x + 5.1)
+                                                .start(-50)
+                                                .end(50)
+                                                .step(0.05)
+                                                .build()
+                                )
                                 .extremeCount(1)
                                 .pointType(PointType.MIN)
                                 .build()
                 ),
                 Arguments.of(
                         ExtremumFixture.builder()
-                                .function(x -> -1.5 * x * x + 4.3 * x - 7.11)
-                                .start(-50)
-                                .end(50)
-                                .step(0.05)
+                                .option(
+                                        FunctionChartOption.builder()
+                                                .function(x -> -1.5 * x * x + 4.3 * x - 7.11)
+                                                .start(-50)
+                                                .end(50)
+                                                .step(0.05)
+                                                .build()
+                                )
                                 .extremeCount(1)
                                 .pointType(PointType.MAX)
                                 .build()

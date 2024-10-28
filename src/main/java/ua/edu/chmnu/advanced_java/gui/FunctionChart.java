@@ -5,15 +5,20 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import ua.edu.chmnu.advanced_java.oop.FunctionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ua.edu.chmnu.advanced_java.oop.FunctionChartOption;
 import ua.edu.chmnu.advanced_java.oop.Point;
 
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
-import java.util.function.Function;
+
+import static ua.edu.chmnu.advanced_java.oop.FunctionUtils.generateBy;
 
 public class FunctionChart extends JFrame {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger("ChartLogger");
 
     private final XYSeriesCollection xySeriesCollection = new XYSeriesCollection();
 
@@ -44,25 +49,43 @@ public class FunctionChart extends JFrame {
         return x * x * x / (2 + Math.log(2 * x - 1));
     }
 
-    public FunctionChart build(String title, Function<Double, Double> f, double a, double b, double h) {
+    public FunctionChart build(String title, FunctionChartOption options) {
         XYSeries xySeries = new XYSeries(title);
 
         xySeriesCollection.addSeries(xySeries);
 
-        Point[] points = FunctionUtils.generateBy(f, a, b, h);
+        Point[] points = generateBy(options);
 
         for (var point : points) {
             xySeries.add(point.x(), point.y());
         }
+
+        LOGGER.info("Created " + points.length + " points");
 
         return this;
     }
 
 
     public static void main(String[] args) throws InterruptedException, InvocationTargetException {
-        SwingUtilities.invokeAndWait(() ->
-                new FunctionChart("Порівняння графіків функцій")
-                        .build("f1", FunctionChart::f1, 1, 10.0, 0.1)
-                        .build("f2", FunctionChart::f2, 1, 10.0, 0.1));
+        SwingUtilities.invokeAndWait(() ->{
+            FunctionChartOption opt1 = FunctionChartOption.builder()
+                    .start(1.0)
+                    .end(10.0)
+                    .step(0.1)
+                    .function(FunctionChart::f1)
+                    .build();
+
+            FunctionChartOption opt2 = FunctionChartOption.builder()
+                    .start(1.0)
+                    .end(10.0)
+                    .step(0.1)
+                    .function(FunctionChart::f2)
+                    .build();
+
+            new FunctionChart("Порівняння графіків функцій")
+                    .build("f1", opt1)
+                    .build("f2", opt2);
+        });
+
     }
 }
