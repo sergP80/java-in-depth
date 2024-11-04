@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TriangleMatrixTest {
+class DoubleSymmetryMatrixTest {
 
     @Test
     void test1() {
@@ -13,7 +13,7 @@ class TriangleMatrixTest {
          * |3 4
          * |4 5 6
          */
-        TriangleMatrix m = new TriangleMatrix(3, (i, j) -> (double) (i + j + 2));
+        DoubleSymmetryMatrix m = new DoubleSymmetryMatrix(3, (i, j) -> (double) (i + j + 2));
 
         assertEquals(m.getBy(0, 1), m.getBy(1, 0));
 

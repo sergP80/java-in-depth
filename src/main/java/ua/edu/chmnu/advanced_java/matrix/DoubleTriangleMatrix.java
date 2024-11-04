@@ -1,6 +1,6 @@
-package ua.edu.chmnu.advanced_java.arrays;
+package ua.edu.chmnu.advanced_java.matrix;
 
-public class DoubleTriangleMatrix {
+public class DoubleTriangleMatrix implements MatrixMutableAccess<Double> {
 
     private final double[][] data;
 
@@ -12,16 +12,18 @@ public class DoubleTriangleMatrix {
         this.data = MatrixUtils.generateTriangle(size, generator);
     }
 
-    public double getBy(int i, int j) {
+    @Override
+    public Double getBy(int i, int j) {
         checkIndices(i, j);
 
         if (j > i) {
-            return 0;
+            return 0.0;
         }
         return data[i][j];
     }
 
-    public void setBy(int i, int j, double value) {
+    @Override
+    public void setBy(int i, int j, Double value) {
         checkIndices(i, j);
 
         if (j <= i) {

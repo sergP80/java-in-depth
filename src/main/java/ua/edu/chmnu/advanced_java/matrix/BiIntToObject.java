@@ -1,4 +1,4 @@
-package ua.edu.chmnu.advanced_java.arrays;
+package ua.edu.chmnu.advanced_java.matrix;
 
 @FunctionalInterface
 public interface BiIntToObject<T> {

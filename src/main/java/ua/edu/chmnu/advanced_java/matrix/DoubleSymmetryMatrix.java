@@ -1,6 +1,6 @@
 package ua.edu.chmnu.advanced_java.matrix;
 
-public class TriangleMatrix implements MatrixMutableAccess<Double> {
+public class DoubleSymmetryMatrix implements MatrixMutableAccess<Double> {
 
     /**
      * 1+ 2+ 3 +... n = n * (1 + n)/2, n^2
@@ -8,11 +8,11 @@ public class TriangleMatrix implements MatrixMutableAccess<Double> {
      */
     private final double[][] data;
 
-    public TriangleMatrix(int size) {
+    public DoubleSymmetryMatrix(int size) {
         data = MatrixUtils.generateTriangle(size, (i, j) -> 0.0);
     }
 
-    public TriangleMatrix(int size, IntToObjectBiFunction<Double> generator) {
+    public DoubleSymmetryMatrix(int size, BiIntToObject<Double> generator) {
         data = MatrixUtils.generateTriangle(size, generator);
     }
 

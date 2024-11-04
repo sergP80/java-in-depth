@@ -11,7 +11,7 @@ class MatrixUtilsTest {
 
     @ParameterizedTest
     @MethodSource("ua.edu.chmnu.advanced_java.matrix.MatrixFixtures#provideTriangleMatrixFixtures")
-    void shouldGenerateTriangleMatrix(IntToObjectBiFunction<Double> generator, double[][] expected) {
+    void shouldGenerateTriangleMatrix(BiIntToObject<Double> generator, double[][] expected) {
         double[][] result = MatrixUtils.generateTriangle(expected.length, generator);
 
         boolean isEqual = Arrays.deepEquals(expected, result);

@@ -14,7 +14,7 @@ public class MatrixFixtures {
     public static Stream<Arguments> provideTriangleMatrixFixtures() {
         return Stream.of(
                 Arguments.of(
-                        (IntToObjectBiFunction<Double>) (i, j) -> (double) (i + j),
+                        (BiIntToObject<Double>) (i, j) -> (double) (i + j),
                         new double[][]{
                                 new double[]{0},
                                 new double[]{1.0, 2.0},
@@ -23,7 +23,7 @@ public class MatrixFixtures {
                         }
                 ),
                 Arguments.of(
-                        (IntToObjectBiFunction<Double>) (i, j) -> (double) ((i+1)*(j+1)),
+                        (BiIntToObject<Double>) (i, j) -> (double) ((i + 1) * (j + 1)),
                         new double[][]{
                                 new double[]{1},
                                 new double[]{2.0, 4.0},

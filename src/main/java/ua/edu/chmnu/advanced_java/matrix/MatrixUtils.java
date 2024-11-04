@@ -13,7 +13,7 @@ class MatrixUtils {
         RANDOM = new Random();
     }
 
-    public static double[][] generateTriangle(int size, IntToObjectBiFunction<Double> generator) {
+    public static double[][] generateTriangle(int size, BiIntToObject<Double> generator) {
         double[][] m = new double[size][];
 
         for (int i = 0; i < m.length; ++i) {
