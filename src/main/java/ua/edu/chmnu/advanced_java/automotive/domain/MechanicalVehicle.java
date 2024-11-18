@@ -1,13 +1,14 @@
 package ua.edu.chmnu.advanced_java.automotive.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Getter
+@Data
 @EqualsAndHashCode(callSuper=true)
 @ToString(callSuper = true)
-public class MechanicalVehicle extends Vehicle {
+@AllArgsConstructor
+@SuperBuilder
+public abstract class MechanicalVehicle extends Vehicle {
     private final VehicleEngine engine;
 
     private final VehicleOdometrics odometrics;

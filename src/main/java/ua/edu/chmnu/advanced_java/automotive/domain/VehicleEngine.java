@@ -1,10 +1,10 @@
 package ua.edu.chmnu.advanced_java.automotive.domain;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 public class VehicleEngine {
 
     private final double volume;
