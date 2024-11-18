@@ -36,5 +36,7 @@ public abstract class Shape2D {
         return title;
     }
 
-    protected void draw(GraphicDevice device) {}
+    protected void draw(GraphicDevice device) {
+        device.draw(this);
+    }
 }
