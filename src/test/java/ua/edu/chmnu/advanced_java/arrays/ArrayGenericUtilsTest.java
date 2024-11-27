@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ua.edu.chmnu.advanced_java.arrays.ArrayUtils.allMatch;
 import static ua.edu.chmnu.advanced_java.arrays.ArrayUtils.anyMatch;
 
-class ArrayUtilsTest {
+class ArrayGenericUtilsTest {
 
     @ParameterizedTest
     @MethodSource("ua.edu.chmnu.advanced_java.arrays.ArrayUtilFixtures#provideIntAllMatchFixtures")
