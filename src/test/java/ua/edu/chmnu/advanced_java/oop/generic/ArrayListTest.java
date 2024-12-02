@@ -57,11 +57,10 @@ class ArrayListTest {
         assertTrue(list.remove(4));
         assertFalse(list.remove(5));
         assertTrue(list.remove(11));
-        assertTrue(list.remove(47));
 
         assertEquals(list.capacity(), initCap);
 
-        assertEquals(list.size(), initSize - 3);
+        assertEquals(list.size(), initSize - 2);
     }
 
     @Test

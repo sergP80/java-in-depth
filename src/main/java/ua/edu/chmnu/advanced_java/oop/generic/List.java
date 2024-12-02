@@ -1,5 +1,7 @@
 package ua.edu.chmnu.advanced_java.oop.generic;
 
+import java.util.function.Predicate;
+
 public interface List<T>  {
 
     int size();
@@ -17,6 +19,8 @@ public interface List<T>  {
     int indexOf(T element);
 
     boolean remove(T element);
+
+    int removeIf(Predicate<T> predicate);
 
     void addAll(List<? extends T> list);
 }

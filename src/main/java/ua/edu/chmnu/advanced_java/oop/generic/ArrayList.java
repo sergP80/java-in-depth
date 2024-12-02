@@ -1,5 +1,7 @@
 package ua.edu.chmnu.advanced_java.oop.generic;
 
+import java.util.function.Predicate;
+
 public class ArrayList<T> implements List<T> {
     private static final int INITIAL_CAPACITY = 16;
 
@@ -63,7 +65,7 @@ public class ArrayList<T> implements List<T> {
         if (this.size == this.capacity) {
             this.capacity *= 2;
 
-            resize(size, this.capacity);
+            this.array = ArrayListHelper.resize(this.array, size, this.capacity);
         }
 
         ++this.size;
@@ -89,17 +91,30 @@ public class ArrayList<T> implements List<T> {
         boolean result = index >= 0;
 
         if (result) {
-            fastRemove(index);
+            ArrayListHelper.removeFrom(this.array, this.size, index);
 
             --this.size;
 
-            if (this.capacity >= (2 * this.size + this.size/2)) {
-                this.capacity = Math.max(INITIAL_CAPACITY, capacity/2);
-                resize(this.size, this.capacity);
-            }
+            resizeIfRequired();
         }
 
         return result;
+    }
+
+    @Override
+    public int removeIf(Predicate<T> predicate) {
+        int countOfDelete = 0;
+
+        for (int i = 0; i < size; ++i) {
+            if (predicate.test(this.array[i])) {
+                ArrayListHelper.removeFrom(this.array, this.size, i);
+                ++countOfDelete;
+            }
+        }
+
+        resizeIfRequired();
+
+        return countOfDelete;
     }
 
     @Override
@@ -109,20 +124,10 @@ public class ArrayList<T> implements List<T> {
         }
     }
 
-    private void resize(int size, int capacity) {
-
-        T[] newArray = (T[]) new Object[capacity];
-
-        System.arraycopy(this.array, 0, newArray, 0, size);
-
-        this.array = newArray;
-    }
-
-    private void fastRemove(int from) {
-        int count = this.size - from - 1;
-
-        if (count > 0) {
-            System.arraycopy(this.array, from + 1, this.array, from, count);
+    private void resizeIfRequired() {
+        if (this.capacity > (2 * this.size + this.size / 2)) {
+            this.capacity = Math.max(INITIAL_CAPACITY, capacity / 2);
+            this.array = ArrayListHelper.resize(this.array, size, this.capacity);
         }
     }
 }
