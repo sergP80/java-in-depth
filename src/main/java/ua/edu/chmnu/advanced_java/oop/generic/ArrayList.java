@@ -44,33 +44,50 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= this.size) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndex(index);
 
         return this.array[index];
     }
 
     @Override
     public T set(int index, T element) {
-        if (index < 0 || index >= this.size) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndex(index);
 
         return this.array[index] = element;
     }
 
     @Override
     public void add(T element) {
-        if (this.size == this.capacity) {
-            this.capacity *= 2;
-
-            this.array = ArrayListHelper.resize(this.array, size, this.capacity);
-        }
+        increaseIfRequired();
 
         ++this.size;
 
         this.array[size - 1] = element;
+    }
+
+    @Override
+    public void add(int index, T element) {
+        checkIndex(index);
+
+        increaseIfRequired();
+
+        System.arraycopy(array, index, array, index + 1, size - index);
+
+        ++this.size;
+
+        this.array[index] = element;
+
+    }
+
+    @Override
+    public void addFirst(T element) {
+        increaseIfRequired();
+
+        System.arraycopy(this.array, 0, this.array, 1, this.size);
+
+        this.array[0] = element;
+
+        ++this.size;
     }
 
     @Override
@@ -95,7 +112,7 @@ public class ArrayList<T> implements List<T> {
 
             --this.size;
 
-            resizeIfRequired();
+            shrinkIfRequired();
         }
 
         return result;
@@ -112,7 +129,7 @@ public class ArrayList<T> implements List<T> {
             }
         }
 
-        resizeIfRequired();
+        shrinkIfRequired();
 
         return countOfDelete;
     }
@@ -124,10 +141,24 @@ public class ArrayList<T> implements List<T> {
         }
     }
 
-    private void resizeIfRequired() {
+    private void increaseIfRequired() {
+        if (this.size == this.capacity) {
+            this.capacity *= 2;
+
+            this.array = ArrayListHelper.resize(this.array, size, this.capacity);
+        }
+    }
+
+    private void shrinkIfRequired() {
         if (this.capacity > (2 * this.size + this.size / 2)) {
             this.capacity = Math.max(INITIAL_CAPACITY, capacity / 2);
             this.array = ArrayListHelper.resize(this.array, size, this.capacity);
+        }
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException();
         }
     }
 }

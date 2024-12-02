@@ -1,6 +1,8 @@
 package ua.edu.chmnu.advanced_java.oop.generic;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -112,5 +114,46 @@ class ArrayListTest {
         assertTrue(list.capacity() > 16);
 
         assertEquals(list.size(), initSize - 4);
+    }
+
+    @Test
+    void shouldAddFirst() {
+        List<Integer> list = new ArrayList<>(1, 2, 4);
+
+        list.addFirst(5);
+
+        assertEquals(4, list.size());
+
+        assertEquals(6, list.capacity());
+
+        assertEquals(5, list.get(0));
+        assertEquals(1, list.get(1));
+        assertEquals(2, list.get(2));
+        assertEquals(4, list.get(3));
+    }
+
+    @Test
+    void shouldSuccessAddByIndex() {
+        List<Integer> list = new ArrayList<>(1, 2, 4);
+
+        list.add(1, -7);
+
+        assertEquals(4, list.size());
+
+        assertEquals(6, list.capacity());
+
+        assertEquals(1, list.get(0));
+        assertEquals(-7, list.get(1));
+        assertEquals(2, list.get(2));
+        assertEquals(4, list.get(3));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 3, 5})
+    void shouldFailAddByIndexIfIndexOutOfBounds(int index) {
+        List<Integer> list = new ArrayList<>(1, 2, 4);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> list.add(index, -7));
+
     }
 }

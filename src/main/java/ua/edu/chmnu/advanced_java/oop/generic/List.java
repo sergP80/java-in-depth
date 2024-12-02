@@ -16,6 +16,15 @@ public interface List<T>  {
 
     void add(T element);
 
+    void add(int index, T element);
+
+    default void addFirst(T element) {
+    }
+
+    default void addLast(T element) {
+        add(element);
+    }
+
     int indexOf(T element);
 
     boolean remove(T element);
