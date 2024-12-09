@@ -2,7 +2,7 @@ package ua.edu.chmnu.advanced_java.exception;
 
 public class RecursionInfinite {
 
-    static class NegativeSumException extends RuntimeException {
+    static class NegativeSumException extends Exception {
 
         public NegativeSumException() {
         }
@@ -17,17 +17,23 @@ public class RecursionInfinite {
             throw new NegativeSumException("Illegal negative number: " + n);
         }
 
+//        if (n == 0) {
+//            return 0;
+//        }
+//
         return n + sum(n - 1);
     }
 
     public static void main(String[] args) {
+        int a = 43;
+
         try {
-            var result = sum(-100);
+            var result = sum(10);
 
             System.out.println(result);
         } catch (NegativeSumException e) {
             System.out.println("Error: " + e.getMessage());
-            throw e;
+            throw new RuntimeException(e);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         } finally {
